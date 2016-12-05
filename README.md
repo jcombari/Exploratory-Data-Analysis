@@ -1,8 +1,8 @@
 #Peer-graded Assignment: Course Project 2
 
 ##Question
-> 
-1. Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+
+- 1. Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
 
 ![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot1.png)
 
@@ -11,7 +11,7 @@
 - Yes, they have sharply declined from 1999 to 2002. Then, they have a slower decline between 2002 and 2005. Finally, they have sharply declined from 2005 to 2008
 
 
-2. Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.
+- 2. Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.
 
 ![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot2.png)
 
