@@ -6,12 +6,6 @@
 
 ![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot1.png)
 
-*item r
-*item 4 
-> A curated list of awesome lists
+> Answer
 
-- [What is an awesome list?](awesome.md)
-- [Contribution guide](contributing.md)
-- [Creating a list](create-list.md)
-- [Buy a sticker](https://www.stickermule.com/marketplace/10034-awesome)
-- [Chat](https://gitter.im/sindresorhus/awesome)
+- Yes, they have sharply declined from 1999 to 2002. Then, they have a slower decline between 2002 and 2005. Finally, they have sharply declined from 2005 to 2008
