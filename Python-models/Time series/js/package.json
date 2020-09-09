@@ -1,0 +1,42 @@
+{
+  "name": "jupyter-aas-timeseries",
+  "version": "0.1.6",
+  "description": "Jupyter Widget for the AAS Time Series project",
+  "author": "Thomas Robitaille and Stuart Lowe",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aperiosoftware/jupyter-aas-timeseries.git"
+  },
+  "keywords": [
+    "jupyter",
+    "widgets",
+    "ipython",
+    "ipywidgets",
+    "jupyterlab-extension"
+  ],
+  "files": [
+    "lib/**/*.js",
+    "dist/*.js",
+    "lib/**/*.css"
+  ],
+  "scripts": {
+    "clean": "rimraf dist/",
+    "prepublish": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.5",
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "@jupyter-widgets/base": "^1.0.0",
+    "css-loader": "^0.28.4",
+    "style-loader": "^0.18.2",
+    "lodash": "^4.17.4"
+  },
+  "jupyterlab": {
+    "extension": "lib/labplugin"
+  }
+}

@@ -1,66 +1,175 @@
-#Peer-graded Assignment: Course Project 2
+# Exploratory Data Analysis in R (introduction)
 
-##Questions
+Exploratory data analysis (EDA) the very first step in a data project. W
 
-### 1. Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+# Setting-up
 
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-R/Gráficos/plot1.png)
+install.packages("tidyverse")
+
+install.packages("funModeling")
+
+install.packages("Hmisc")
+
+## load the needed libraries…
+
+library(funModeling) 
+
+library(tidyverse) 
+
+library(Hmisc)
+
+# tl;dr (code)
+
+Run all the functions in this post in one-shot with the following function:
+
+basic_eda <- function(data)
+{
+  glimpse(data)
+  df_status(data)
+  freq(data) 
+  profiling_num(data)
+  plot_num(data)
+  describe(data)
+}
+
+Replace data with your data, and that's it!:
+
+basic_eda(my_amazing_data)
+
+# Creating the data for this example
+
+data=heart_disease %>% select(age, max_heart_rate, thal, has_heart_disease)
+
+# Step 1 - First approach to data
+
+glimpse(data)
+
+## metrics about data types, zeros, infinite numbers, and missing values:
+
+df_status(data)
+
+# Step 2 - Analyzing categorical variables
+
+freq(data)
+
+### Export the plots to jpeg into current directory: freq(data, path_out = ".")
+
+# Step 3 - Analyzing numerical variables
+
+## Graphically
+
+plot_num(data)
+
+### Tips
+
+* Try to identify high-unbalanced variables
+* Visually check any variable with outliers
+
+## Quantitatively
+
+data_prof=profiling_num(data)
+
+### Tips
+
+Describe each variable based on its distribution (also useful for reporting)
+
+Attention to variables with high standard deviation.
+
+Use metrics that you are most familiar with: data_prof %>% select(variable, variation_coef, range_98): A high value in variation_coef may indictate outliers. range_98 indicates where most of the values are.
+
+# Step 4 - Analyzing numerical and categorical at the same time
+
+library(Hmisc)
+library(Hmisc)
+describe(data)
+
+### TIPS:
+
+* Check min and max values (outliers)
+* Check Distributions 
+
+# Data Cleaning
+
+choco$Cocoa.Percent = as.numeric(gsub('%','',choco$Cocoa.Percent))
+
+choco$Review.Date = as.character(choco$Review.Date)
+
+# Variables
+The very first thing that you’d want to do in your EDA is checking the dimension of the input dataset and the time of variables.
+
+plot_str(choco)
+
+# search for Missing Values
+
+plot_missing(choco)
+
+# Continuous Variables
+
+plot_histogram(choco)
+
+# Density plot, DataExplorer has got a function for that.
+
+plot_density(choco)
+
+# Multivariate Analysis
+
+plot_correlation(choco, type = 'continuous','Review.Date')
+
+# Categorical Variables — Barplots
+
+plot_bar(choco)
+
+# create_report
+
+reate_report(choco)
+
+# Use nrow() and ncol() 
+Use nrow() and ncol() to get the number of rows and number of columns, respectively.  You can get the same information by extracting the first and second element of the output vector from dim(). 
 
 
+# How to see the last observations.
+For example, the following command will return the last 10 observations.
 
-> Answer
+tail(InsectSprays, n = -62)
 
-- Yes, they have sharply declined from 1999 to 2002. Then, they have a slower decline between 2002 and 2005. Finally, they have sharply declined from 2005 to 2008
+# The str() function 
 
+Returns many useful pieces of information, including the above useful outputs and the types of data for each column.  In this example, “num” denotes that the variable “count” is numeric (continuous), and “Factor” denotes that the variable “spray” is categorical with 6 categories or levels.  
 
-### 2. Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.
+> str(InsectSprays)
 
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot2.png)
+'data.frame': 72 obs. of 2 variables:
 
-> Answer
+$ count: num 10 7 20 14 14 12 10 23 17 20 ...
 
-- The data indicate a sharp decline between 1999 and 2002. A sharp increase occurred from 2002 to 2005. Finally, another sharp decrease occurred from 2005 to 2008.
+$ spray: Factor w/ 6 levels "A","B","C","D",..: 1 1 1 1 1 1 1 1 1 1 ...
+tail(InsectSprays, n = -62)
 
-### 3. Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
+# Categories or levels of a categorical variable
 
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot3.png)
+To obtain all of the categories or levels of a categorical variable, use the levels() function.
 
-> Answer
+> levels(InsectSprays$spray)
 
-- Nonpoint (green line): From the plot, we see that nonpoint (green line) sharply decreased from 1999 to 2002. It remained steady from 2002 to 2005 with 1,500 Total \(PM_{2.5}\) emissions. Finally, a slight decrease occurred between 2005 and 2008 from 1,500 Total \(PM_{2.5}\) emissions.
+# Missing values
 
-- Point (purple line): From the plot, we see that the point (purple line) slightly increased from 1999 to 2002. It then sharply increased in \(PM_{2.5}\) emissions from 2002 to 2005. Finally, from 2005 to 2008, the \(PM_{2.5}\) emissions sharply decreased.
+If there are any missing values (denoted by “NA” for a particular datum), it would also provide a count for them.  In this example, there are no missing values for “count”, so there is no display for the number of NA’s.  For a categorical variable like “spray”, it returns the levels and the number of data in each level.  
 
-- Onroad (blue line): From the plot, we see that the onroad (blue line) slightly decreased from 1999 to 2002. It remained approximately steady from 2002 to 2005 and continued this trend from 2005 to 2008. In comparison to the nonroad values, this over all trend was lower compared to the nonroad values.
+> summary(InsectSprays)
 
--  Nonroad (red line): From the plot, we see that the nonroad (red line) followed the same path as the onroad values only slightly higher in \(PM_{2.5}\) emissions values. slightly decreased from 1999 to 2002. It remained approximately steady from 2002 to 2005 and continued this trend from 2005 to 2008.
+count            spray
 
-### 4. Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
+Min.   : 0.00    A:12
 
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot4.png)
+1st Qu.: 3.00    B:12
 
-> Answer
+Median : 7.00    C:12
 
-- Total (Purple Line): From the plot, we see that the purple line for total slightly declines from 1999 to 2002. From 2002 to 2005 the line has a marginal increase. Finally, from 2005 to 2008, the overall trend has a sharp decrease.
+Mean   : 9.50    D:12
 
-- Point (Blue Line): From the plot, we see that the blue line for point is slightly similar in shape to the total purple line. From 1999 to 2002 the point blue line has a steeper decrease. From 2002 to 2005, the point blue line increases only slightly. Finally, from 2005 to 2008, the overall trend has a sharp decrease.
+3rd Qu.:14.25    E:12
 
-- Nonpoint (Red Line): This line is remarkably different from the other two lines. From 1999 to 2002 it has an increase (although it starts from a much lower level than the other two lines at just above zero). From 2002 to 2005 it remains nearly level and does not appear to increase or decrease much. Finally, from 2005 to 2008, another symmetrical decrease occurs to end just below the initial levels for the 1999 values.
+Max.   :26.00    F:12
 
-### 5. How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
+[1] "A" "B" "C" "D" "E" "F"
 
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot5.png)
-
-> Answer
-
-- Starting with 1999, the \(PM_{2.5}\) emissions was just below 350, the levels fell sharply until 2002. From 2002 to 2005 the levels plateaued. Finally from 2005 to 2008, the \(PM_{2.5}\) emissions drop to below 100 \(PM_{2.5}\) emissions.
-
-### 6. Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
-
-![alt tag](https://github.com/jcombari/Exploratory-Data-Analysis-Project2/blob/master/plot6.png)
-
-> Answer
-
--  Comparisons of \(PM_{2.5}\) emissions between Baltimore, MD (a city in MD) and Los Angeles, CA (county). In this case, we are asked to compare a city to a county. In plot 6, we notice that Baltimore, MD starts considerably lower in terms of \(PM_{2.5}\) emissions.
-- Baltimore, MD [city] (Red Line): The red line starts marginally above zero and below 1,000 \(PM_{2.5}\) emission values. Between 1999 and 2002, it slowly declines and remains nearly static between 2002 and 2008.
-- Los Angeles, CA [county] (Blue Line): The blue line starts significantly higher than the Baltimore, MD line. Starting with 1999, slightly below 4,000 \(PM_{2.5}\) emisions and steadily increases to 2005. The value of \(PM_{2.5}\) emissions for 2005 hits a peak at approximately 4,500 \(PM_{2.5}\) emision levels and then decreases between 2005 and 2008 with an ending value point of slightly above 4,000 \(PM_{2.5}\) emissions.
